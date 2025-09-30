@@ -1,0 +1,47 @@
+{
+  "name": "numbers",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^6.0.2",
+    "@metamask/detect-provider": "^2.0.0",
+    "@polkadot/api": "^16.4.8",
+    "@polkadot/extension-dapp": "^0.62.1",
+    "@polkadot/ui-keyring": "^3.16.1",
+    "@reduxjs/toolkit": "^2.9.0",
+    "@tanstack/react-query": "^5.90.2",
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-opener": "^2",
+    "antd": "^5.27.4",
+    "dayjs": "^1.11.18",
+    "decimal.js": "^10.6.0",
+    "ethers": "^5.8.0",
+    "lucide-react": "^0.544.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-hook-form": "^7.63.0",
+    "react-hot-toast": "^2.6.0",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.9.3",
+    "recharts": "^3.2.1"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@parity/hardhat-polkadot": "^0.1.7",
+    "@tauri-apps/cli": "^2",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^4.6.0",
+    "hardhat": "^2.22.0",
+    "solc": "^0.8.28",
+    "typescript": "~5.8.3",
+    "vite": "^7.0.4"
+  }
+}
