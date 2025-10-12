@@ -1,16 +1,16 @@
-import { useState, useCallback } from 'react';
-import { ethers } from 'ethers';
+import { useState, useCallback } from 'react'
+import { ethers } from 'ethers'
 
 export interface NetworkConfig {
-  chainId: string;
-  chainName: string;
+  chainId: string
+  chainName: string
   nativeCurrency: {
-    name: string;
-    symbol: string;
-    decimals: number;
-  };
-  rpcUrls: string[];
-  blockExplorerUrls?: string[];
+    name: string
+    symbol: string
+    decimals: number
+  }
+  rpcUrls: string[]
+  blockExplorerUrls?: string[]
 }
 
 // Network configurations based on Polkadot guide
@@ -24,7 +24,9 @@ export const NETWORK_CONFIGS: Record<string, NetworkConfig> = {
       decimals: 18,
     },
     rpcUrls: ['https://testnet-passet-hub-eth-rpc.polkadot.io'],
-    blockExplorerUrls: ['https://blockscout-passet-hub.parity-testnet.parity.io'],
+    blockExplorerUrls: [
+      'https://blockscout-passet-hub.parity-testnet.parity.io',
+    ],
   },
   moonbeam: {
     chainId: '0x504', // 1284 in hex
@@ -59,20 +61,20 @@ export const NETWORK_CONFIGS: Record<string, NetworkConfig> = {
     rpcUrls: ['https://evm.astar.network'],
     blockExplorerUrls: ['https://blockscout.com/astar'],
   },
-};
+}
 
 export const useNetworkConfig = () => {
-  const [currentNetwork, setCurrentNetwork] = useState<string>('paseo');
-  const [isConnected, setIsConnected] = useState(false);
+  const [currentNetwork, setCurrentNetwork] = useState<string>('paseo')
+  const [isConnected, setIsConnected] = useState(false)
 
   const switchNetwork = useCallback(async (networkName: string) => {
     if (!window.ethereum) {
-      throw new Error('MetaMask is not installed');
+      throw new Error('MetaMask is not installed')
     }
 
-    const config = NETWORK_CONFIGS[networkName];
+    const config = NETWORK_CONFIGS[networkName]
     if (!config) {
-      throw new Error(`Unknown network: ${networkName}`);
+      throw new Error(`Unknown network: ${networkName}`)
     }
 
     try {
@@ -80,8 +82,8 @@ export const useNetworkConfig = () => {
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: config.chainId }],
-      });
-      setCurrentNetwork(networkName);
+      })
+      setCurrentNetwork(networkName)
     } catch (switchError: any) {
       // This error code indicates that the chain has not been added to MetaMask
       if (switchError.code === 4902) {
@@ -89,48 +91,51 @@ export const useNetworkConfig = () => {
           await window.ethereum.request({
             method: 'wallet_addEthereumChain',
             params: [config],
-          });
-          setCurrentNetwork(networkName);
+          })
+          setCurrentNetwork(networkName)
         } catch (addError) {
-          console.error('Failed to add network:', addError);
-          throw addError;
+          console.error('Failed to add network:', addError)
+          throw addError
         }
       } else {
-        console.error('Failed to switch network:', switchError);
-        throw switchError;
+        console.error('Failed to switch network:', switchError)
+        throw switchError
       }
     }
-  }, []);
+  }, [])
 
   const connectWallet = useCallback(async () => {
     if (!window.ethereum) {
-      throw new Error('MetaMask is not installed');
+      throw new Error('MetaMask is not installed')
     }
 
     try {
       const accounts = await window.ethereum.request({
         method: 'eth_requestAccounts',
-      });
-      
+      })
+
       if (accounts.length > 0) {
-        setIsConnected(true);
-        return accounts[0];
+        setIsConnected(true)
+        return accounts[0]
       }
     } catch (error) {
-      console.error('Failed to connect wallet:', error);
-      throw error;
+      console.error('Failed to connect wallet:', error)
+      throw error
     }
-  }, []);
+  }, [])
 
-  const getProvider = useCallback((networkName?: string) => {
-    const network = networkName || currentNetwork;
-    const config = NETWORK_CONFIGS[network];
-    if (!config) {
-      throw new Error(`Unknown network: ${network}`);
-    }
-    
-    return new ethers.JsonRpcProvider(config.rpcUrls[0]);
-  }, [currentNetwork]);
+  const getProvider = useCallback(
+    (networkName?: string) => {
+      const network = networkName || currentNetwork
+      const config = NETWORK_CONFIGS[network]
+      if (!config) {
+        throw new Error(`Unknown network: ${network}`)
+      }
+
+      return new ethers.JsonRpcProvider(config.rpcUrls[0])
+    },
+    [currentNetwork]
+  )
 
   return {
     networks: NETWORK_CONFIGS,
@@ -139,5 +144,5 @@ export const useNetworkConfig = () => {
     switchNetwork,
     connectWallet,
     getProvider,
-  };
-};
+  }
+}

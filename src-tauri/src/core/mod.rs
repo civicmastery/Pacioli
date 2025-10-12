@@ -1,9 +1,9 @@
 mod address;
 mod encryption;
 
-use serde::{Deserialize, Serialize};
-use rust_decimal::Decimal;
 use chrono::{DateTime, Utc};
+use rust_decimal::Decimal;
+use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 pub use address::UnifiedAddress;
