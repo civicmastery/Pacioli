@@ -1,38 +1,47 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Save, X, DollarSign, TrendingUp, Settings as SettingsIcon, Key, Eye } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react'
+import {
+  Save,
+  X,
+  DollarSign,
+  TrendingUp,
+  Settings as SettingsIcon,
+  Key,
+  Eye,
+} from 'lucide-react'
 import {
   SUPPORTED_CRYPTO_CURRENCIES,
   SUPPORTED_FIAT_CURRENCIES,
   ConversionMethod,
   CurrencyDisplayFormat,
   DecimalSeparatorStandard,
-} from '../../types/currency';
-import { useCurrency } from '../../contexts/CurrencyContext';
+} from '../../types/currency'
+import { useCurrency } from '../../contexts/CurrencyContext'
 
 interface CurrencySettings {
-  primaryCurrency: string;
-  reportingCurrencies: string[];
-  conversionMethod: ConversionMethod;
-  decimalPlaces: number;
-  useThousandsSeparator: boolean;
-  currencyDisplayFormat: CurrencyDisplayFormat;
-  decimalSeparatorStandard: DecimalSeparatorStandard;
-  autoConvert: boolean;
-  cacheExchangeRates: boolean;
-  coingeckoApiKey?: string;
-  fixerApiKey?: string;
+  primaryCurrency: string
+  reportingCurrencies: string[]
+  conversionMethod: ConversionMethod
+  decimalPlaces: number
+  useThousandsSeparator: boolean
+  currencyDisplayFormat: CurrencyDisplayFormat
+  decimalSeparatorStandard: DecimalSeparatorStandard
+  autoConvert: boolean
+  cacheExchangeRates: boolean
+  coingeckoApiKey?: string
+  fixerApiKey?: string
 }
 
 const Currencies: React.FC = () => {
-  const { settings: contextSettings, updateSettings: updateContextSettings } = useCurrency();
+  const { settings: contextSettings, updateSettings: updateContextSettings } =
+    useCurrency()
   const [localSettings, setLocalSettings] = useState<CurrencySettings>({
     ...contextSettings,
     coingeckoApiKey: '',
     fixerApiKey: '',
-  });
+  })
 
-  const [showApiKeys, setShowApiKeys] = useState(false);
-  const [hasChanges, setHasChanges] = useState(false);
+  const [showApiKeys, setShowApiKeys] = useState(false)
+  const [hasChanges, setHasChanges] = useState(false)
 
   // Sync local settings with context on mount
   useEffect(() => {
@@ -40,35 +49,41 @@ const Currencies: React.FC = () => {
       ...contextSettings,
       coingeckoApiKey: '',
       fixerApiKey: '',
-    });
-  }, [contextSettings]);
+    })
+  }, [contextSettings])
 
   const handleChange = <K extends keyof CurrencySettings>(
     key: K,
     value: CurrencySettings[K]
   ) => {
-    setLocalSettings(prev => ({ ...prev, [key]: value }));
-    setHasChanges(true);
-  };
+    setLocalSettings(prev => ({ ...prev, [key]: value }))
+    setHasChanges(true)
+  }
 
   const handleToggleReportingCurrency = (currency: string) => {
-    const newReportingCurrencies = localSettings.reportingCurrencies.includes(currency)
+    const newReportingCurrencies = localSettings.reportingCurrencies.includes(
+      currency
+    )
       ? localSettings.reportingCurrencies.filter(c => c !== currency)
-      : [...localSettings.reportingCurrencies, currency];
+      : [...localSettings.reportingCurrencies, currency]
 
-    handleChange('reportingCurrencies', newReportingCurrencies);
-  };
+    handleChange('reportingCurrencies', newReportingCurrencies)
+  }
 
   const handleSave = () => {
     // Update context with new settings (excluding API keys for now)
-    const { coingeckoApiKey: _coingeckoApiKey, fixerApiKey: _fixerApiKey, ...settingsToSave } = localSettings;
-    updateContextSettings(settingsToSave);
+    const {
+      coingeckoApiKey: _coingeckoApiKey,
+      fixerApiKey: _fixerApiKey,
+      ...settingsToSave
+    } = localSettings
+    updateContextSettings(settingsToSave)
 
     // TODO: Save API keys to backend via Tauri command
-    console.log('Saving currency settings:', localSettings);
-    setHasChanges(false);
+    console.log('Saving currency settings:', localSettings)
+    setHasChanges(false)
     // Show success notification
-  };
+  }
 
   const handleReset = () => {
     // Reset to context settings
@@ -76,9 +91,9 @@ const Currencies: React.FC = () => {
       ...contextSettings,
       coingeckoApiKey: '',
       fixerApiKey: '',
-    });
-    setHasChanges(false);
-  };
+    })
+    setHasChanges(false)
+  }
 
   // Format number based on decimal separator standard
   const formatNumber = (
@@ -89,75 +104,114 @@ const Currencies: React.FC = () => {
     switch (standard) {
       case 'point-comma':
         // 1,234.56 - comma for thousands, point for decimal
-        return `${integerPart}.${decimalPart}`;
+        return `${integerPart}.${decimalPart}`
       case 'comma-point':
         // 1.234,56 - point for thousands, comma for decimal
-        return `${integerPart.replace(/,/g, '.')},${decimalPart}`;
+        return `${integerPart.replace(/,/g, '.')},${decimalPart}`
       case 'point-space':
         // 1 234.56 - space for thousands, point for decimal
-        return `${integerPart.replace(/,/g, ' ')}.${decimalPart}`;
+        return `${integerPart.replace(/,/g, ' ')}.${decimalPart}`
       case 'comma-space':
         // 1 234,56 - space for thousands, comma for decimal
-        return `${integerPart.replace(/,/g, ' ')},${decimalPart}`;
+        return `${integerPart.replace(/,/g, ' ')},${decimalPart}`
       default:
-        return `${integerPart}.${decimalPart}`;
+        return `${integerPart}.${decimalPart}`
     }
-  };
+  }
 
   // Memoized event handlers
-  const handlePrimaryCurrencyChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    handleChange('primaryCurrency', e.target.value);
-  }, []);
+  const handlePrimaryCurrencyChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      handleChange('primaryCurrency', e.target.value)
+    },
+    []
+  )
 
-  const handleCurrencyToggle = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    const currency = e.currentTarget.dataset.currency;
-    if (currency) {
-      handleToggleReportingCurrency(currency);
-    }
-  }, []);
+  const handleCurrencyToggle = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      const currency = e.currentTarget.dataset.currency
+      if (currency) {
+        handleToggleReportingCurrency(currency)
+      }
+    },
+    []
+  )
 
-  const handleConversionMethodChange = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    const method = e.currentTarget.dataset.method as ConversionMethod;
-    if (method) {
-      handleChange('conversionMethod', method);
-    }
-  }, []);
+  const handleConversionMethodChange = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      const method = e.currentTarget.dataset.method as ConversionMethod
+      if (method) {
+        handleChange('conversionMethod', method)
+      }
+    },
+    []
+  )
 
-  const handleAutoConvertChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange('autoConvert', e.target.checked);
-  }, []);
+  const handleAutoConvertChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      handleChange('autoConvert', e.target.checked)
+    },
+    []
+  )
 
-  const handleCacheRatesChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange('cacheExchangeRates', e.target.checked);
-  }, []);
+  const handleCacheRatesChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      handleChange('cacheExchangeRates', e.target.checked)
+    },
+    []
+  )
 
-  const handleDisplayFormatChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    handleChange('currencyDisplayFormat', e.target.value as CurrencyDisplayFormat);
-  }, []);
+  const handleDisplayFormatChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      handleChange(
+        'currencyDisplayFormat',
+        e.target.value as CurrencyDisplayFormat
+      )
+    },
+    []
+  )
 
-  const handleDecimalPlacesChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange('decimalPlaces', parseInt(e.target.value) || 2);
-  }, []);
+  const handleDecimalPlacesChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      handleChange('decimalPlaces', parseInt(e.target.value) || 2)
+    },
+    []
+  )
 
-  const handleSeparatorStandardChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    handleChange('decimalSeparatorStandard', e.target.value as DecimalSeparatorStandard);
-  }, []);
+  const handleSeparatorStandardChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      handleChange(
+        'decimalSeparatorStandard',
+        e.target.value as DecimalSeparatorStandard
+      )
+    },
+    []
+  )
 
-  const handleThousandsSeparatorChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange('useThousandsSeparator', e.target.checked);
-  }, []);
+  const handleThousandsSeparatorChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      handleChange('useThousandsSeparator', e.target.checked)
+    },
+    []
+  )
 
   const handleToggleApiKeys = useCallback(() => {
-    setShowApiKeys(prev => !prev);
-  }, []);
+    setShowApiKeys(prev => !prev)
+  }, [])
 
-  const handleCoingeckoKeyChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange('coingeckoApiKey', e.target.value);
-  }, []);
+  const handleCoingeckoKeyChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      handleChange('coingeckoApiKey', e.target.value)
+    },
+    []
+  )
 
-  const handleFixerKeyChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange('fixerApiKey', e.target.value);
-  }, []);
+  const handleFixerKeyChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      handleChange('fixerApiKey', e.target.value)
+    },
+    []
+  )
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-black">
@@ -209,8 +263,9 @@ const Currencies: React.FC = () => {
               </h2>
             </div>
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-              Your primary currency is used for all financial reports and statements.
-              Transactions in other currencies will be automatically converted.
+              Your primary currency is used for all financial reports and
+              statements. Transactions in other currencies will be automatically
+              converted.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -250,8 +305,8 @@ const Currencies: React.FC = () => {
               </h2>
             </div>
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-              Select additional currencies to include in your reports. Values will be
-              converted automatically based on current exchange rates.
+              Select additional currencies to include in your reports. Values
+              will be converted automatically based on current exchange rates.
             </p>
 
             <div className="space-y-4">
@@ -338,7 +393,9 @@ const Currencies: React.FC = () => {
                         : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 bg-white dark:bg-gray-800'
                     }`}
                   >
-                    <div className="font-medium text-gray-900 dark:text-white mb-1">Spot Rate</div>
+                    <div className="font-medium text-gray-900 dark:text-white mb-1">
+                      Spot Rate
+                    </div>
                     <div className="text-xs text-gray-500 dark:text-gray-400">
                       Use current exchange rate for all conversions
                     </div>
@@ -368,7 +425,9 @@ const Currencies: React.FC = () => {
                         : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 bg-white dark:bg-gray-800'
                     }`}
                   >
-                    <div className="font-medium text-gray-900 dark:text-white mb-1">Fixed Rate</div>
+                    <div className="font-medium text-gray-900 dark:text-white mb-1">
+                      Fixed Rate
+                    </div>
                     <div className="text-xs text-gray-500 dark:text-gray-400">
                       Use manually set exchange rates
                     </div>
@@ -457,10 +516,18 @@ const Currencies: React.FC = () => {
                   onChange={handleSeparatorStandardChange}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="point-comma">Decimal point format - 1,234.56</option>
-                  <option value="comma-point">Decimal comma format - 1.234,56</option>
-                  <option value="point-space">Decimal point (space) format - 1 234.56</option>
-                  <option value="comma-space">Decimal comma (space) format - 1 234,56</option>
+                  <option value="point-comma">
+                    Decimal point format - 1,234.56
+                  </option>
+                  <option value="comma-point">
+                    Decimal comma format - 1.234,56
+                  </option>
+                  <option value="point-space">
+                    Decimal point (space) format - 1 234.56
+                  </option>
+                  <option value="comma-space">
+                    Decimal comma (space) format - 1 234,56
+                  </option>
                 </select>
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                   Choose how numbers are formatted with separators
@@ -483,7 +550,9 @@ const Currencies: React.FC = () => {
             </div>
 
             <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              <div className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Preview:</div>
+              <div className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Preview:
+              </div>
               <div className="text-2xl font-semibold text-gray-900 dark:text-white">
                 {localSettings.currencyDisplayFormat === 'symbol' && '$'}
                 {localSettings.decimalPlaces > 0
@@ -492,7 +561,9 @@ const Currencies: React.FC = () => {
                       Array(localSettings.decimalPlaces).fill('5').join(''),
                       localSettings.decimalSeparatorStandard
                     )
-                  : localSettings.useThousandsSeparator ? '1,234' : '1234'}
+                  : localSettings.useThousandsSeparator
+                    ? '1,234'
+                    : '1234'}
                 {localSettings.currencyDisplayFormat === 'code' && ' USD'}
                 {localSettings.currencyDisplayFormat === 'name' && ' US Dollar'}
               </div>
@@ -517,8 +588,8 @@ const Currencies: React.FC = () => {
             </div>
 
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-              Configure API keys for external exchange rate providers. These are optional
-              but recommended for production use.
+              Configure API keys for external exchange rate providers. These are
+              optional but recommended for production use.
             </p>
 
             {showApiKeys && (
@@ -586,14 +657,16 @@ const Currencies: React.FC = () => {
                 </h3>
                 <div className="mt-2 text-sm text-blue-700 dark:text-blue-400 space-y-1">
                   <p>
-                    • Historical rates provide accurate reporting for tax and accounting
-                    purposes
+                    • Historical rates provide accurate reporting for tax and
+                    accounting purposes
                   </p>
                   <p>
-                    • Exchange rates are cached for 5 minutes (crypto) or 24 hours (fiat)
+                    • Exchange rates are cached for 5 minutes (crypto) or 24
+                    hours (fiat)
                   </p>
                   <p>
-                    • All conversions preserve decimal precision to avoid rounding errors
+                    • All conversions preserve decimal precision to avoid
+                    rounding errors
                   </p>
                 </div>
               </div>
@@ -602,7 +675,7 @@ const Currencies: React.FC = () => {
         </div>
       </main>
     </div>
-  );
-};
+  )
+}
 
-export default Currencies;
+export default Currencies
