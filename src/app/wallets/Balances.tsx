@@ -16,7 +16,15 @@ import {
   ResponsiveContainer,
   Legend,
 } from 'recharts'
-import { format, subDays, subMonths, startOfMonth, endOfMonth, startOfYear, subYears } from 'date-fns'
+import {
+  format,
+  subDays,
+  subMonths,
+  startOfMonth,
+  endOfMonth,
+  startOfYear,
+  subYears,
+} from 'date-fns'
 
 interface WalletBalance {
   id: string
@@ -38,7 +46,14 @@ interface ChartDataPoint {
   [key: string]: number | string
 }
 
-type TimePeriod = 'this_month' | 'last_month' | '30_days' | '90_days' | 'one_year' | 'this_year' | 'last_year'
+type TimePeriod =
+  | 'this_month'
+  | 'last_month'
+  | '30_days'
+  | '90_days'
+  | 'one_year'
+  | 'this_year'
+  | 'last_year'
 
 const Balances: React.FC = () => {
   const [selectedPeriod, setSelectedPeriod] = useState<TimePeriod>('30_days')
@@ -62,9 +77,9 @@ const Balances: React.FC = () => {
       address: 'FcjmeNzPk3vgdENm1rHeiMCxFK96beUoi2kb59FmCoZtkGF',
       blockchain: 'Kusama',
       balances: {
-        KSM: { amount: 185.3, usdValue: 8338.50, change24h: -1.2 },
+        KSM: { amount: 185.3, usdValue: 8338.5, change24h: -1.2 },
       },
-      totalUsdValue: 8338.50,
+      totalUsdValue: 8338.5,
     },
     {
       id: '3',
@@ -140,7 +155,9 @@ const Balances: React.FC = () => {
         break
       case 'this_year':
         startDate = startOfYear(now)
-        dataPoints = Math.floor((now.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 7)) // Weekly
+        dataPoints = Math.floor(
+          (now.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 7)
+        ) // Weekly
         break
       case 'last_year':
         const lastYear = subYears(now, 1)
@@ -153,12 +170,18 @@ const Balances: React.FC = () => {
     }
 
     const data: ChartDataPoint[] = []
-    const interval = period.includes('year') || period === '90_days'
-      ? Math.floor((now.getTime() - startDate.getTime()) / (dataPoints * 24 * 60 * 60 * 1000))
-      : 1
+    const interval =
+      period.includes('year') || period === '90_days'
+        ? Math.floor(
+            (now.getTime() - startDate.getTime()) /
+              (dataPoints * 24 * 60 * 60 * 1000)
+          )
+        : 1
 
     for (let i = 0; i < dataPoints; i++) {
-      const date = new Date(startDate.getTime() + i * interval * 24 * 60 * 60 * 1000)
+      const date = new Date(
+        startDate.getTime() + i * interval * 24 * 60 * 60 * 1000
+      )
 
       // Generate realistic-looking data with some volatility
       const baseValue = 300000
@@ -168,14 +191,17 @@ const Balances: React.FC = () => {
       const totalValue = baseValue + trend + volatility
 
       // Distribute total across currencies with different patterns
-      const dotRatio = 0.30 + Math.sin(i / 5) * 0.08
-      const ksmRatio = 0.20 + Math.cos(i / 4) * 0.05
+      const dotRatio = 0.3 + Math.sin(i / 5) * 0.08
+      const ksmRatio = 0.2 + Math.cos(i / 4) * 0.05
       const glmrRatio = 0.25 + Math.sin(i / 6) * 0.06
       const astrRatio = 0.15 + Math.cos(i / 5) * 0.04
       const iBtcRatio = 1 - dotRatio - ksmRatio - glmrRatio - astrRatio
 
       data.push({
-        date: format(date, period.includes('year') || period === '90_days' ? 'MMM d' : 'MMM d'),
+        date: format(
+          date,
+          period.includes('year') || period === '90_days' ? 'MMM d' : 'MMM d'
+        ),
         DOT: Math.round(totalValue * dotRatio),
         KSM: Math.round(totalValue * ksmRatio),
         GLMR: Math.round(totalValue * glmrRatio),
@@ -187,7 +213,10 @@ const Balances: React.FC = () => {
     return data
   }
 
-  const chartData = useMemo(() => generateChartData(selectedPeriod), [selectedPeriod])
+  const chartData = useMemo(
+    () => generateChartData(selectedPeriod),
+    [selectedPeriod]
+  )
 
   const timePeriodOptions: { value: TimePeriod; label: string }[] = [
     { value: 'this_month', label: 'This Month' },
@@ -199,16 +228,25 @@ const Balances: React.FC = () => {
     { value: 'last_year', label: 'Last Year' },
   ]
 
-  const totalPortfolioValue = wallets.reduce((sum, wallet) => sum + wallet.totalUsdValue, 0)
+  const totalPortfolioValue = wallets.reduce(
+    (sum, wallet) => sum + wallet.totalUsdValue,
+    0
+  )
 
   // Calculate total balances by currency across all wallets
   const totalBalancesByCurrency = useMemo(() => {
-    const balances: { [crypto: string]: { amount: number; usdValue: number; change24h: number } } = {}
+    const balances: {
+      [crypto: string]: { amount: number; usdValue: number; change24h: number }
+    } = {}
 
     wallets.forEach(wallet => {
       Object.entries(wallet.balances).forEach(([crypto, balance]) => {
         if (!balances[crypto]) {
-          balances[crypto] = { amount: 0, usdValue: 0, change24h: balance.change24h }
+          balances[crypto] = {
+            amount: 0,
+            usdValue: 0,
+            change24h: balance.change24h,
+          }
         }
         balances[crypto].amount += balance.amount
         balances[crypto].usdValue += balance.usdValue
@@ -219,14 +257,14 @@ const Balances: React.FC = () => {
   }, [wallets])
 
   const currencyColors: { [key: string]: string } = {
-    DOT: '#E6007A',      // Polkadot pink
-    KSM: '#000000',      // Kusama black
-    GLMR: '#53CBC8',     // Moonbeam teal
-    ASTR: '#0081FF',     // Astar blue
-    BNC: '#5A25F0',      // Bifrost purple
-    iBTC: '#F7931A',     // Bitcoin orange
-    USDC: '#2775CA',     // USD Coin blue
-    USDT: '#26A17B',     // Tether green
+    DOT: '#E6007A', // Polkadot pink
+    KSM: '#000000', // Kusama black
+    GLMR: '#53CBC8', // Moonbeam teal
+    ASTR: '#0081FF', // Astar blue
+    BNC: '#5A25F0', // Bifrost purple
+    iBTC: '#F7931A', // Bitcoin orange
+    USDC: '#2775CA', // USD Coin blue
+    USDT: '#26A17B', // Tether green
   }
 
   const formatCurrency = useCallback((value: number) => {
@@ -238,7 +276,10 @@ const Balances: React.FC = () => {
     }).format(value)
   }, [])
 
-  const formatYAxisTick = useCallback((value: number) => `$${(value / 1000).toFixed(0)}k`, [])
+  const formatYAxisTick = useCallback(
+    (value: number) => `$${(value / 1000).toFixed(0)}k`,
+    []
+  )
 
   const truncateAddress = useCallback((address: string) => {
     return `${address.slice(0, 6)}...${address.slice(-4)}`
@@ -289,7 +330,9 @@ const Balances: React.FC = () => {
               </p>
             </div>
             <div className="text-right">
-              <p className="text-sm font-medium text-gray-500">Active Wallets</p>
+              <p className="text-sm font-medium text-gray-500">
+                Active Wallets
+              </p>
               <p className="text-2xl font-semibold text-gray-900 mt-2">
                 {wallets.length}
               </p>
@@ -452,15 +495,15 @@ const Balances: React.FC = () => {
                 <div className="flex items-center">
                   <span
                     className={`text-sm font-medium ${
-                      balance.change24h >= 0
-                        ? 'text-green-600'
-                        : 'text-red-600'
+                      balance.change24h >= 0 ? 'text-green-600' : 'text-red-600'
                     }`}
                   >
                     {balance.change24h >= 0 ? '+' : ''}
                     {balance.change24h}%
                   </span>
-                  <span className="text-sm text-gray-500 dark:text-gray-400 ml-1">24h</span>
+                  <span className="text-sm text-gray-500 dark:text-gray-400 ml-1">
+                    24h
+                  </span>
                 </div>
               </div>
             ))}
@@ -475,7 +518,10 @@ const Balances: React.FC = () => {
           </div>
           <div className="divide-y divide-gray-200 dark:divide-gray-700">
             {wallets.map(wallet => (
-              <div key={wallet.id} className="p-6 hover:bg-gray-50 dark:hover:bg-gray-800">
+              <div
+                key={wallet.id}
+                className="p-6 hover:bg-gray-50 dark:hover:bg-gray-800"
+              >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-start space-x-4">
                     <div className="p-3 bg-blue-50 rounded-lg">
@@ -502,7 +548,9 @@ const Balances: React.FC = () => {
                     <p className="text-xl font-semibold text-gray-900 dark:text-white">
                       {formatCurrency(wallet.totalUsdValue)}
                     </p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Total Value</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                      Total Value
+                    </p>
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 pl-14">

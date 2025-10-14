@@ -31,11 +31,11 @@ interface AccountBalance {
 }
 
 const Dashboard: React.FC = () => {
-  const { settings: currencySettings } = useCurrency();
+  const { settings: currencySettings } = useCurrency()
 
   const [accountBalances] = useState<AccountBalance[]>([
     { crypto: 'DOT', amount: 1250.5, usdValue: 9378.75, change24h: 2.3 },
-    { crypto: 'KSM', amount: 185.3, usdValue: 8338.50, change24h: -1.2 },
+    { crypto: 'KSM', amount: 185.3, usdValue: 8338.5, change24h: -1.2 },
     { crypto: 'GLMR', amount: 45000, usdValue: 13500, change24h: 3.4 },
     { crypto: 'ASTR', amount: 125000, usdValue: 8750, change24h: 1.8 },
     { crypto: 'BNC', amount: 8500, usdValue: 2550, change24h: 0.9 },
@@ -154,11 +154,17 @@ const Dashboard: React.FC = () => {
                   Total Portfolio Value
                 </p>
                 <p className="text-2xl font-semibold text-gray-900 dark:text-white mt-2">
-                  {formatCurrency(totalPortfolioValue, currencySettings.primaryCurrency, {
-                    decimalPlaces: currencySettings.decimalPlaces,
-                    useThousandsSeparator: currencySettings.useThousandsSeparator,
-                    decimalSeparatorStandard: currencySettings.decimalSeparatorStandard,
-                  })}
+                  {formatCurrency(
+                    totalPortfolioValue,
+                    currencySettings.primaryCurrency,
+                    {
+                      decimalPlaces: currencySettings.decimalPlaces,
+                      useThousandsSeparator:
+                        currencySettings.useThousandsSeparator,
+                      decimalSeparatorStandard:
+                        currencySettings.decimalSeparatorStandard,
+                    }
+                  )}
                 </p>
                 <div className="flex items-center mt-2">
                   {portfolioChange >= 0 ? (
@@ -191,8 +197,10 @@ const Dashboard: React.FC = () => {
                 <p className="text-2xl font-semibold text-gray-900 dark:text-white mt-2">
                   {formatCurrency(425600, currencySettings.primaryCurrency, {
                     decimalPlaces: currencySettings.decimalPlaces,
-                    useThousandsSeparator: currencySettings.useThousandsSeparator,
-                    decimalSeparatorStandard: currencySettings.decimalSeparatorStandard,
+                    useThousandsSeparator:
+                      currencySettings.useThousandsSeparator,
+                    decimalSeparatorStandard:
+                      currencySettings.decimalSeparatorStandard,
                   })}
                 </p>
                 <div className="flex items-center mt-2">
@@ -221,8 +229,10 @@ const Dashboard: React.FC = () => {
                 <p className="text-2xl font-semibold text-gray-900 dark:text-white mt-2">
                   {formatCurrency(312450, currencySettings.primaryCurrency, {
                     decimalPlaces: currencySettings.decimalPlaces,
-                    useThousandsSeparator: currencySettings.useThousandsSeparator,
-                    decimalSeparatorStandard: currencySettings.decimalSeparatorStandard,
+                    useThousandsSeparator:
+                      currencySettings.useThousandsSeparator,
+                    decimalSeparatorStandard:
+                      currencySettings.decimalSeparatorStandard,
                   })}
                 </p>
                 <div className="flex items-center mt-2">
@@ -248,7 +258,9 @@ const Dashboard: React.FC = () => {
                 <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
                   Active Wallets
                 </p>
-                <p className="text-2xl font-semibold text-gray-900 dark:text-white mt-2">8</p>
+                <p className="text-2xl font-semibold text-gray-900 dark:text-white mt-2">
+                  8
+                </p>
                 <div className="flex items-center mt-2">
                   <span className="text-sm font-medium text-gray-600">
                     4 blockchains
@@ -296,11 +308,17 @@ const Dashboard: React.FC = () => {
                       </div>
                       <div className="text-right">
                         <p className="font-semibold text-gray-900 dark:text-white">
-                          {formatCurrency(account.usdValue, currencySettings.primaryCurrency, {
-                            decimalPlaces: currencySettings.decimalPlaces,
-                            useThousandsSeparator: currencySettings.useThousandsSeparator,
-                            decimalSeparatorStandard: currencySettings.decimalSeparatorStandard,
-                          })}
+                          {formatCurrency(
+                            account.usdValue,
+                            currencySettings.primaryCurrency,
+                            {
+                              decimalPlaces: currencySettings.decimalPlaces,
+                              useThousandsSeparator:
+                                currencySettings.useThousandsSeparator,
+                              decimalSeparatorStandard:
+                                currencySettings.decimalSeparatorStandard,
+                            }
+                          )}
                         </p>
                         <div className="flex items-center justify-end mt-1">
                           {account.change24h >= 0 ? (
@@ -358,7 +376,10 @@ const Dashboard: React.FC = () => {
                   </thead>
                   <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
                     {recentTransactions.map(tx => (
-                      <tr key={tx.id} className="hover:bg-gray-50 dark:hover:bg-gray-800">
+                      <tr
+                        key={tx.id}
+                        className="hover:bg-gray-50 dark:hover:bg-gray-800"
+                      >
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
                           {tx.date}
                         </td>
@@ -385,11 +406,17 @@ const Dashboard: React.FC = () => {
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                          {formatCurrency(Math.abs(tx.usdValue), currencySettings.primaryCurrency, {
-                            decimalPlaces: currencySettings.decimalPlaces,
-                            useThousandsSeparator: currencySettings.useThousandsSeparator,
-                            decimalSeparatorStandard: currencySettings.decimalSeparatorStandard,
-                          })}
+                          {formatCurrency(
+                            Math.abs(tx.usdValue),
+                            currencySettings.primaryCurrency,
+                            {
+                              decimalPlaces: currencySettings.decimalPlaces,
+                              useThousandsSeparator:
+                                currencySettings.useThousandsSeparator,
+                              decimalSeparatorStandard:
+                                currencySettings.decimalSeparatorStandard,
+                            }
+                          )}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span
@@ -445,19 +472,25 @@ const Dashboard: React.FC = () => {
               </div>
               <div className="p-6 space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Tax Year 2025</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Tax Year 2025
+                  </span>
                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-green-800 bg-green-100">
                     On Track
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">IRS Form 990</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    IRS Form 990
+                  </span>
                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-yellow-800 bg-yellow-100">
                     Due Soon
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Audit Ready</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Audit Ready
+                  </span>
                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-green-800 bg-green-100">
                     Yes
                   </span>
@@ -468,7 +501,9 @@ const Dashboard: React.FC = () => {
             {/* Alerts */}
             <div className="bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
               <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Alerts</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  Alerts
+                </h2>
               </div>
               <div className="p-6">
                 <div className="space-y-3">
