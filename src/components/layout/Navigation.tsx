@@ -256,9 +256,9 @@ const Navigation: React.FC<NavigationProps> = ({
           <div
             className="fixed inset-0 bg-gray-600 bg-opacity-75"
             onClick={() => setSidebarOpen(false)}
-            onKeyDown={(e) => {
+            onKeyDown={e => {
               if (e.key === 'Escape') {
-                setSidebarOpen(false);
+                setSidebarOpen(false)
               }
             }}
             role="button"
