@@ -131,12 +131,37 @@ const mockRoles: Role[] = [
     description: 'Full access to all features and settings',
     isCustom: false,
     permissions: [
-      { module: 'Dashboard', view: true, create: true, edit: true, delete: true },
-      { module: 'Transactions', view: true, create: true, edit: true, delete: true, approve: true },
+      {
+        module: 'Dashboard',
+        view: true,
+        create: true,
+        edit: true,
+        delete: true,
+      },
+      {
+        module: 'Transactions',
+        view: true,
+        create: true,
+        edit: true,
+        delete: true,
+        approve: true,
+      },
       { module: 'Wallets', view: true, create: true, edit: true, delete: true },
       { module: 'Reports', view: true, create: true, edit: true, delete: true },
-      { module: 'Analytics', view: true, create: true, edit: true, delete: true },
-      { module: 'Settings', view: true, create: true, edit: true, delete: true },
+      {
+        module: 'Analytics',
+        view: true,
+        create: true,
+        edit: true,
+        delete: true,
+      },
+      {
+        module: 'Settings',
+        view: true,
+        create: true,
+        edit: true,
+        delete: true,
+      },
       { module: 'Users', view: true, create: true, edit: true, delete: true },
     ],
   },
@@ -146,13 +171,56 @@ const mockRoles: Role[] = [
     description: 'Manage transactions and financial records',
     isCustom: false,
     permissions: [
-      { module: 'Dashboard', view: true, create: false, edit: false, delete: false },
-      { module: 'Transactions', view: true, create: true, edit: true, delete: false, approve: true },
-      { module: 'Wallets', view: true, create: true, edit: true, delete: false },
-      { module: 'Reports', view: true, create: true, edit: true, delete: false },
-      { module: 'Analytics', view: true, create: false, edit: false, delete: false },
-      { module: 'Settings', view: true, create: false, edit: true, delete: false },
-      { module: 'Users', view: true, create: false, edit: false, delete: false },
+      {
+        module: 'Dashboard',
+        view: true,
+        create: false,
+        edit: false,
+        delete: false,
+      },
+      {
+        module: 'Transactions',
+        view: true,
+        create: true,
+        edit: true,
+        delete: false,
+        approve: true,
+      },
+      {
+        module: 'Wallets',
+        view: true,
+        create: true,
+        edit: true,
+        delete: false,
+      },
+      {
+        module: 'Reports',
+        view: true,
+        create: true,
+        edit: true,
+        delete: false,
+      },
+      {
+        module: 'Analytics',
+        view: true,
+        create: false,
+        edit: false,
+        delete: false,
+      },
+      {
+        module: 'Settings',
+        view: true,
+        create: false,
+        edit: true,
+        delete: false,
+      },
+      {
+        module: 'Users',
+        view: true,
+        create: false,
+        edit: false,
+        delete: false,
+      },
     ],
   },
   {
@@ -161,13 +229,55 @@ const mockRoles: Role[] = [
     description: 'Read-only access with audit logs',
     isCustom: false,
     permissions: [
-      { module: 'Dashboard', view: true, create: false, edit: false, delete: false },
-      { module: 'Transactions', view: true, create: false, edit: false, delete: false },
-      { module: 'Wallets', view: true, create: false, edit: false, delete: false },
-      { module: 'Reports', view: true, create: false, edit: false, delete: false },
-      { module: 'Analytics', view: true, create: false, edit: false, delete: false },
-      { module: 'Settings', view: true, create: false, edit: false, delete: false },
-      { module: 'Users', view: true, create: false, edit: false, delete: false },
+      {
+        module: 'Dashboard',
+        view: true,
+        create: false,
+        edit: false,
+        delete: false,
+      },
+      {
+        module: 'Transactions',
+        view: true,
+        create: false,
+        edit: false,
+        delete: false,
+      },
+      {
+        module: 'Wallets',
+        view: true,
+        create: false,
+        edit: false,
+        delete: false,
+      },
+      {
+        module: 'Reports',
+        view: true,
+        create: false,
+        edit: false,
+        delete: false,
+      },
+      {
+        module: 'Analytics',
+        view: true,
+        create: false,
+        edit: false,
+        delete: false,
+      },
+      {
+        module: 'Settings',
+        view: true,
+        create: false,
+        edit: false,
+        delete: false,
+      },
+      {
+        module: 'Users',
+        view: true,
+        create: false,
+        edit: false,
+        delete: false,
+      },
     ],
   },
   {
@@ -176,13 +286,55 @@ const mockRoles: Role[] = [
     description: 'View-only access to reports and dashboards',
     isCustom: false,
     permissions: [
-      { module: 'Dashboard', view: true, create: false, edit: false, delete: false },
-      { module: 'Transactions', view: true, create: false, edit: false, delete: false },
-      { module: 'Wallets', view: true, create: false, edit: false, delete: false },
-      { module: 'Reports', view: true, create: false, edit: false, delete: false },
-      { module: 'Analytics', view: false, create: false, edit: false, delete: false },
-      { module: 'Settings', view: false, create: false, edit: false, delete: false },
-      { module: 'Users', view: false, create: false, edit: false, delete: false },
+      {
+        module: 'Dashboard',
+        view: true,
+        create: false,
+        edit: false,
+        delete: false,
+      },
+      {
+        module: 'Transactions',
+        view: true,
+        create: false,
+        edit: false,
+        delete: false,
+      },
+      {
+        module: 'Wallets',
+        view: true,
+        create: false,
+        edit: false,
+        delete: false,
+      },
+      {
+        module: 'Reports',
+        view: true,
+        create: false,
+        edit: false,
+        delete: false,
+      },
+      {
+        module: 'Analytics',
+        view: false,
+        create: false,
+        edit: false,
+        delete: false,
+      },
+      {
+        module: 'Settings',
+        view: false,
+        create: false,
+        edit: false,
+        delete: false,
+      },
+      {
+        module: 'Users',
+        view: false,
+        create: false,
+        edit: false,
+        delete: false,
+      },
     ],
   },
 ]
@@ -194,7 +346,9 @@ const UsersPermissions: React.FC = () => {
   const [users, setUsers] = useState<User[]>(mockUsers)
   const [roles] = useState<Role[]>(mockRoles)
   const [searchQuery, setSearchQuery] = useState('')
-  const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'inactive' | 'pending'>('all')
+  const [statusFilter, setStatusFilter] = useState<
+    'all' | 'active' | 'inactive' | 'pending'
+  >('all')
   const [showInviteModal, setShowInviteModal] = useState(false)
   const [selectedUser, setSelectedUser] = useState<User | null>(null)
 
@@ -208,9 +362,12 @@ const UsersPermissions: React.FC = () => {
 
   const getStatusBadge = (status: User['status']) => {
     const styles = {
-      active: 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 border-green-200 dark:border-green-800',
-      inactive: 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700',
-      pending: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400 border-yellow-200 dark:border-yellow-800',
+      active:
+        'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 border-green-200 dark:border-green-800',
+      inactive:
+        'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700',
+      pending:
+        'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400 border-yellow-200 dark:border-yellow-800',
     }
 
     return (
@@ -226,7 +383,9 @@ const UsersPermissions: React.FC = () => {
     if (!date) return 'Never'
     const loginDate = new Date(date)
     const now = new Date()
-    const diffInHours = Math.floor((now.getTime() - loginDate.getTime()) / (1000 * 60 * 60))
+    const diffInHours = Math.floor(
+      (now.getTime() - loginDate.getTime()) / (1000 * 60 * 60)
+    )
 
     if (diffInHours < 1) return 'Just now'
     if (diffInHours < 24) return `${diffInHours}h ago`
@@ -299,7 +458,9 @@ const UsersPermissions: React.FC = () => {
             </div>
             <select
               value={statusFilter}
-              onChange={e => setStatusFilter(e.target.value as typeof statusFilter)}
+              onChange={e =>
+                setStatusFilter(e.target.value as typeof statusFilter)
+              }
               className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="all">All Status</option>
@@ -450,10 +611,18 @@ const UsersPermissions: React.FC = () => {
                       Module
                     </span>
                     <div className="flex items-center space-x-2">
-                      <span className="text-gray-500 dark:text-gray-400">View</span>
-                      <span className="text-gray-500 dark:text-gray-400">Create</span>
-                      <span className="text-gray-500 dark:text-gray-400">Edit</span>
-                      <span className="text-gray-500 dark:text-gray-400">Delete</span>
+                      <span className="text-gray-500 dark:text-gray-400">
+                        View
+                      </span>
+                      <span className="text-gray-500 dark:text-gray-400">
+                        Create
+                      </span>
+                      <span className="text-gray-500 dark:text-gray-400">
+                        Edit
+                      </span>
+                      <span className="text-gray-500 dark:text-gray-400">
+                        Delete
+                      </span>
                     </div>
                   </div>
                   <div className="max-h-48 overflow-y-auto space-y-2">
@@ -503,7 +672,8 @@ const UsersPermissions: React.FC = () => {
                 <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                   <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
                     <span>
-                      {users.filter(u => u.role.id === role.id).length} users assigned
+                      {users.filter(u => u.role.id === role.id).length} users
+                      assigned
                     </span>
                     {!role.isCustom && (
                       <span className="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">
@@ -635,8 +805,8 @@ const UsersPermissions: React.FC = () => {
                 <div className="flex">
                   <AlertCircle className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0" />
                   <p className="ml-3 text-xs text-blue-800 dark:text-blue-400">
-                    An invitation email will be sent to the user with instructions to set
-                    up their account.
+                    An invitation email will be sent to the user with
+                    instructions to set up their account.
                   </p>
                 </div>
               </div>

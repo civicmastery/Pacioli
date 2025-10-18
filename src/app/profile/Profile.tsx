@@ -65,9 +65,14 @@ const Profile: React.FC = () => {
   })
 
   const [hasChanges, setHasChanges] = useState(false)
-  const [activeTab, setActiveTab] = useState<'profile' | 'security' | 'preferences'>('profile')
+  const [activeTab, setActiveTab] = useState<
+    'profile' | 'security' | 'preferences'
+  >('profile')
 
-  const handleProfileChange = <K extends keyof UserProfile>(key: K, value: UserProfile[K]) => {
+  const handleProfileChange = <K extends keyof UserProfile>(
+    key: K,
+    value: UserProfile[K]
+  ) => {
     setProfile(prev => ({ ...prev, [key]: value }))
     setHasChanges(true)
   }
@@ -169,7 +174,9 @@ const Profile: React.FC = () => {
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mt-4">
                   {profile.firstName} {profile.lastName}
                 </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{profile.jobTitle}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {profile.jobTitle}
+                </p>
               </div>
 
               {/* Tab Navigation */}
@@ -228,7 +235,9 @@ const Profile: React.FC = () => {
                         <input
                           type="text"
                           value={profile.firstName}
-                          onChange={e => handleProfileChange('firstName', e.target.value)}
+                          onChange={e =>
+                            handleProfileChange('firstName', e.target.value)
+                          }
                           className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                       </div>
@@ -239,7 +248,9 @@ const Profile: React.FC = () => {
                         <input
                           type="text"
                           value={profile.lastName}
-                          onChange={e => handleProfileChange('lastName', e.target.value)}
+                          onChange={e =>
+                            handleProfileChange('lastName', e.target.value)
+                          }
                           className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                       </div>
@@ -252,7 +263,9 @@ const Profile: React.FC = () => {
                           <input
                             type="email"
                             value={profile.email}
-                            onChange={e => handleProfileChange('email', e.target.value)}
+                            onChange={e =>
+                              handleProfileChange('email', e.target.value)
+                            }
                             className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                           />
                         </div>
@@ -266,7 +279,9 @@ const Profile: React.FC = () => {
                           <input
                             type="tel"
                             value={profile.phone}
-                            onChange={e => handleProfileChange('phone', e.target.value)}
+                            onChange={e =>
+                              handleProfileChange('phone', e.target.value)
+                            }
                             className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                           />
                         </div>
@@ -288,7 +303,9 @@ const Profile: React.FC = () => {
                           <input
                             type="text"
                             value={profile.jobTitle}
-                            onChange={e => handleProfileChange('jobTitle', e.target.value)}
+                            onChange={e =>
+                              handleProfileChange('jobTitle', e.target.value)
+                            }
                             className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                           />
                         </div>
@@ -302,7 +319,9 @@ const Profile: React.FC = () => {
                           <input
                             type="text"
                             value={profile.department}
-                            onChange={e => handleProfileChange('department', e.target.value)}
+                            onChange={e =>
+                              handleProfileChange('department', e.target.value)
+                            }
                             className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                           />
                         </div>
@@ -316,7 +335,9 @@ const Profile: React.FC = () => {
                           <input
                             type="text"
                             value={profile.location}
-                            onChange={e => handleProfileChange('location', e.target.value)}
+                            onChange={e =>
+                              handleProfileChange('location', e.target.value)
+                            }
                             className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                           />
                         </div>
@@ -351,7 +372,10 @@ const Profile: React.FC = () => {
                           type="checkbox"
                           checked={security.twoFactorEnabled}
                           onChange={e =>
-                            handleSecurityChange('twoFactorEnabled', e.target.checked)
+                            handleSecurityChange(
+                              'twoFactorEnabled',
+                              e.target.checked
+                            )
                           }
                           className="sr-only peer"
                         />
@@ -376,7 +400,12 @@ const Profile: React.FC = () => {
                         <input
                           type="checkbox"
                           checked={security.loginAlerts}
-                          onChange={e => handleSecurityChange('loginAlerts', e.target.checked)}
+                          onChange={e =>
+                            handleSecurityChange(
+                              'loginAlerts',
+                              e.target.checked
+                            )
+                          }
                           className="sr-only peer"
                         />
                         <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
@@ -419,13 +448,23 @@ const Profile: React.FC = () => {
                           <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                           <select
                             value={profile.timezone}
-                            onChange={e => handleProfileChange('timezone', e.target.value)}
+                            onChange={e =>
+                              handleProfileChange('timezone', e.target.value)
+                            }
                             className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                           >
-                            <option value="America/Los_Angeles">Pacific Time (US & Canada)</option>
-                            <option value="America/Denver">Mountain Time (US & Canada)</option>
-                            <option value="America/Chicago">Central Time (US & Canada)</option>
-                            <option value="America/New_York">Eastern Time (US & Canada)</option>
+                            <option value="America/Los_Angeles">
+                              Pacific Time (US & Canada)
+                            </option>
+                            <option value="America/Denver">
+                              Mountain Time (US & Canada)
+                            </option>
+                            <option value="America/Chicago">
+                              Central Time (US & Canada)
+                            </option>
+                            <option value="America/New_York">
+                              Eastern Time (US & Canada)
+                            </option>
                             <option value="UTC">UTC</option>
                           </select>
                         </div>
@@ -436,7 +475,9 @@ const Profile: React.FC = () => {
                         </label>
                         <select
                           value={profile.language}
-                          onChange={e => handleProfileChange('language', e.target.value)}
+                          onChange={e =>
+                            handleProfileChange('language', e.target.value)
+                          }
                           className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
                           <option value="en">English</option>
@@ -453,7 +494,9 @@ const Profile: React.FC = () => {
                           <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                           <select
                             value={profile.dateFormat}
-                            onChange={e => handleProfileChange('dateFormat', e.target.value)}
+                            onChange={e =>
+                              handleProfileChange('dateFormat', e.target.value)
+                            }
                             className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                           >
                             <option value="MM/DD/YYYY">MM/DD/YYYY (US)</option>
@@ -484,7 +527,10 @@ const Profile: React.FC = () => {
                           type="checkbox"
                           checked={security.emailNotifications}
                           onChange={e =>
-                            handleSecurityChange('emailNotifications', e.target.checked)
+                            handleSecurityChange(
+                              'emailNotifications',
+                              e.target.checked
+                            )
                           }
                           className="sr-only peer"
                         />
@@ -506,7 +552,10 @@ const Profile: React.FC = () => {
                           type="checkbox"
                           checked={security.smsNotifications}
                           onChange={e =>
-                            handleSecurityChange('smsNotifications', e.target.checked)
+                            handleSecurityChange(
+                              'smsNotifications',
+                              e.target.checked
+                            )
                           }
                           className="sr-only peer"
                         />

@@ -42,7 +42,9 @@ interface GeneralSettingsProps {
   userType?: 'individual' | 'organization'
 }
 
-const GeneralSettings: React.FC<GeneralSettingsProps> = ({ userType = 'organization' }) => {
+const GeneralSettings: React.FC<GeneralSettingsProps> = ({
+  userType = 'organization',
+}) => {
   const { theme: currentTheme, setTheme } = useTheme()
   const { organizationLogo, setOrganizationLogo } = useOrganization()
 
@@ -160,284 +162,291 @@ const GeneralSettings: React.FC<GeneralSettingsProps> = ({ userType = 'organizat
 
       <div className="space-y-6">
         {/* Organization Information - Only for organizations */}
-        {userType === 'organization' && <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6">
-          <div className="flex items-center mb-4">
-            <Building2 className="w-5 h-5 text-blue-600 mr-2" />
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Organization Information
-            </h3>
-          </div>
-
-          <div className="space-y-4">
-            {/* Logo Upload */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Organization Logo
-              </label>
-              <div className="flex items-center space-x-4">
-                {organizationSettings.logo ? (
-                  <img
-                    src={organizationSettings.logo}
-                    alt="Organization logo"
-                    className="w-16 h-16 rounded-lg border border-gray-200 dark:border-gray-700 object-cover"
-                  />
-                ) : (
-                  <div className="w-16 h-16 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center">
-                    <Building2 className="w-6 h-6 text-gray-400" />
-                  </div>
-                )}
-                <label className="cursor-pointer">
-                  <span className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 inline-flex items-center">
-                    <Upload className="w-4 h-4 mr-2" />
-                    Upload Logo
-                  </span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleLogoUpload}
-                    className="hidden"
-                  />
-                </label>
-              </div>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                Recommended: Square image, at least 200x200px
-              </p>
+        {userType === 'organization' && (
+          <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+            <div className="flex items-center mb-4">
+              <Building2 className="w-5 h-5 text-blue-600 mr-2" />
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                Organization Information
+              </h3>
             </div>
 
-            {/* Organization Type */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Organization Type
-              </label>
-              <select
-                value={organizationSettings.organizationType}
-                onChange={e =>
-                  handleOrganizationChange(
-                    'organizationType',
-                    e.target.value as OrganizationSettings['organizationType']
-                  )
-                }
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="not-for-profit">Not-for-Profit Organization</option>
-                <option value="sme">Small-Medium Enterprise (SME)</option>
-                <option value="individual">Individual/Sole Proprietor</option>
-              </select>
+            <div className="space-y-4">
+              {/* Logo Upload */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Organization Logo
+                </label>
+                <div className="flex items-center space-x-4">
+                  {organizationSettings.logo ? (
+                    <img
+                      src={organizationSettings.logo}
+                      alt="Organization logo"
+                      className="w-16 h-16 rounded-lg border border-gray-200 dark:border-gray-700 object-cover"
+                    />
+                  ) : (
+                    <div className="w-16 h-16 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                      <Building2 className="w-6 h-6 text-gray-400" />
+                    </div>
+                  )}
+                  <label className="cursor-pointer">
+                    <span className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 inline-flex items-center">
+                      <Upload className="w-4 h-4 mr-2" />
+                      Upload Logo
+                    </span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleLogoUpload}
+                      className="hidden"
+                    />
+                  </label>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  Recommended: Square image, at least 200x200px
+                </p>
+              </div>
+
+              {/* Organization Type */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Organization Type
+                </label>
+                <select
+                  value={organizationSettings.organizationType}
+                  onChange={e =>
+                    handleOrganizationChange(
+                      'organizationType',
+                      e.target.value as OrganizationSettings['organizationType']
+                    )
+                  }
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="not-for-profit">
+                    Not-for-Profit Organization
+                  </option>
+                  <option value="sme">Small-Medium Enterprise (SME)</option>
+                  <option value="individual">Individual/Sole Proprietor</option>
+                </select>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Organization Name
+                  </label>
+                  <input
+                    type="text"
+                    value={organizationSettings.name}
+                    onChange={e =>
+                      handleOrganizationChange('name', e.target.value)
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Legal Name
+                  </label>
+                  <input
+                    type="text"
+                    value={organizationSettings.legalName}
+                    onChange={e =>
+                      handleOrganizationChange('legalName', e.target.value)
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Tax ID / EIN
+                  </label>
+                  <input
+                    type="text"
+                    value={organizationSettings.taxId}
+                    onChange={e =>
+                      handleOrganizationChange('taxId', e.target.value)
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Website
+                  </label>
+                  <input
+                    type="url"
+                    value={organizationSettings.website}
+                    onChange={e =>
+                      handleOrganizationChange('website', e.target.value)
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    value={organizationSettings.email}
+                    onChange={e =>
+                      handleOrganizationChange('email', e.target.value)
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Phone
+                  </label>
+                  <input
+                    type="tel"
+                    value={organizationSettings.phone}
+                    onChange={e =>
+                      handleOrganizationChange('phone', e.target.value)
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Address
+                </label>
+                <input
+                  type="text"
+                  value={organizationSettings.address}
+                  onChange={e =>
+                    handleOrganizationChange('address', e.target.value)
+                  }
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    City
+                  </label>
+                  <input
+                    type="text"
+                    value={organizationSettings.city}
+                    onChange={e =>
+                      handleOrganizationChange('city', e.target.value)
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    State/Province
+                  </label>
+                  <input
+                    type="text"
+                    value={organizationSettings.state}
+                    onChange={e =>
+                      handleOrganizationChange('state', e.target.value)
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    ZIP/Postal Code
+                  </label>
+                  <input
+                    type="text"
+                    value={organizationSettings.zipCode}
+                    onChange={e =>
+                      handleOrganizationChange('zipCode', e.target.value)
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Country
+                </label>
+                <input
+                  type="text"
+                  value={organizationSettings.country}
+                  onChange={e =>
+                    handleOrganizationChange('country', e.target.value)
+                  }
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Fiscal Year Settings - Only for organizations */}
+        {userType === 'organization' && (
+          <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+            <div className="flex items-center mb-4">
+              <Calendar className="w-5 h-5 text-blue-600 mr-2" />
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                Fiscal Year
+              </h3>
+            </div>
+
+            <div className="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-4">
+              <div className="flex">
+                <AlertCircle className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0" />
+                <div className="ml-3">
+                  <p className="text-sm text-blue-800 dark:text-blue-400">
+                    Changing the fiscal year will affect all date-based reports
+                    and analytics. Consult with your accountant before making
+                    changes.
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Organization Name
+                  Fiscal Year Start (MM-DD)
                 </label>
                 <input
                   type="text"
-                  value={organizationSettings.name}
+                  value={systemSettings.fiscalYearStart}
                   onChange={e =>
-                    handleOrganizationChange('name', e.target.value)
+                    handleSystemChange('fiscalYearStart', e.target.value)
                   }
+                  placeholder="01-01"
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Legal Name
+                  Fiscal Year End (MM-DD)
                 </label>
                 <input
                   type="text"
-                  value={organizationSettings.legalName}
+                  value={systemSettings.fiscalYearEnd}
                   onChange={e =>
-                    handleOrganizationChange('legalName', e.target.value)
+                    handleSystemChange('fiscalYearEnd', e.target.value)
                   }
+                  placeholder="12-31"
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Tax ID / EIN
-                </label>
-                <input
-                  type="text"
-                  value={organizationSettings.taxId}
-                  onChange={e =>
-                    handleOrganizationChange('taxId', e.target.value)
-                  }
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Website
-                </label>
-                <input
-                  type="url"
-                  value={organizationSettings.website}
-                  onChange={e =>
-                    handleOrganizationChange('website', e.target.value)
-                  }
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  value={organizationSettings.email}
-                  onChange={e =>
-                    handleOrganizationChange('email', e.target.value)
-                  }
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Phone
-                </label>
-                <input
-                  type="tel"
-                  value={organizationSettings.phone}
-                  onChange={e =>
-                    handleOrganizationChange('phone', e.target.value)
-                  }
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Address
-              </label>
-              <input
-                type="text"
-                value={organizationSettings.address}
-                onChange={e =>
-                  handleOrganizationChange('address', e.target.value)
-                }
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  City
-                </label>
-                <input
-                  type="text"
-                  value={organizationSettings.city}
-                  onChange={e =>
-                    handleOrganizationChange('city', e.target.value)
-                  }
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  State/Province
-                </label>
-                <input
-                  type="text"
-                  value={organizationSettings.state}
-                  onChange={e =>
-                    handleOrganizationChange('state', e.target.value)
-                  }
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  ZIP/Postal Code
-                </label>
-                <input
-                  type="text"
-                  value={organizationSettings.zipCode}
-                  onChange={e =>
-                    handleOrganizationChange('zipCode', e.target.value)
-                  }
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Country
-              </label>
-              <input
-                type="text"
-                value={organizationSettings.country}
-                onChange={e =>
-                  handleOrganizationChange('country', e.target.value)
-                }
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-          </div>
-        </div>}
-
-        {/* Fiscal Year Settings - Only for organizations */}
-        {userType === 'organization' && <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6">
-          <div className="flex items-center mb-4">
-            <Calendar className="w-5 h-5 text-blue-600 mr-2" />
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Fiscal Year
-            </h3>
-          </div>
-
-          <div className="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-4">
-            <div className="flex">
-              <AlertCircle className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0" />
-              <div className="ml-3">
-                <p className="text-sm text-blue-800 dark:text-blue-400">
-                  Changing the fiscal year will affect all date-based reports and analytics.
-                  Consult with your accountant before making changes.
-                </p>
               </div>
             </div>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Fiscal Year Start (MM-DD)
-              </label>
-              <input
-                type="text"
-                value={systemSettings.fiscalYearStart}
-                onChange={e =>
-                  handleSystemChange('fiscalYearStart', e.target.value)
-                }
-                placeholder="01-01"
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Fiscal Year End (MM-DD)
-              </label>
-              <input
-                type="text"
-                value={systemSettings.fiscalYearEnd}
-                onChange={e =>
-                  handleSystemChange('fiscalYearEnd', e.target.value)
-                }
-                placeholder="12-31"
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-          </div>
-        </div>}
+        )}
 
         {/* Regional Settings */}
         <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6">
@@ -458,10 +467,18 @@ const GeneralSettings: React.FC<GeneralSettingsProps> = ({ userType = 'organizat
                 onChange={e => handleSystemChange('timezone', e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                <option value="America/Los_Angeles">Pacific Time (US & Canada)</option>
-                <option value="America/Denver">Mountain Time (US & Canada)</option>
-                <option value="America/Chicago">Central Time (US & Canada)</option>
-                <option value="America/New_York">Eastern Time (US & Canada)</option>
+                <option value="America/Los_Angeles">
+                  Pacific Time (US & Canada)
+                </option>
+                <option value="America/Denver">
+                  Mountain Time (US & Canada)
+                </option>
+                <option value="America/Chicago">
+                  Central Time (US & Canada)
+                </option>
+                <option value="America/New_York">
+                  Eastern Time (US & Canada)
+                </option>
                 <option value="UTC">UTC</option>
                 <option value="Europe/London">London</option>
                 <option value="Europe/Paris">Paris</option>
@@ -476,7 +493,10 @@ const GeneralSettings: React.FC<GeneralSettingsProps> = ({ userType = 'organizat
               <select
                 value={systemSettings.language}
                 onChange={e =>
-                  handleSystemChange('language', e.target.value as SystemSettings['language'])
+                  handleSystemChange(
+                    'language',
+                    e.target.value as SystemSettings['language']
+                  )
                 }
                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
@@ -494,7 +514,10 @@ const GeneralSettings: React.FC<GeneralSettingsProps> = ({ userType = 'organizat
               <select
                 value={systemSettings.dateFormat}
                 onChange={e =>
-                  handleSystemChange('dateFormat', e.target.value as SystemSettings['dateFormat'])
+                  handleSystemChange(
+                    'dateFormat',
+                    e.target.value as SystemSettings['dateFormat']
+                  )
                 }
                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
@@ -511,7 +534,10 @@ const GeneralSettings: React.FC<GeneralSettingsProps> = ({ userType = 'organizat
               <select
                 value={systemSettings.timeFormat}
                 onChange={e =>
-                  handleSystemChange('timeFormat', e.target.value as SystemSettings['timeFormat'])
+                  handleSystemChange(
+                    'timeFormat',
+                    e.target.value as SystemSettings['timeFormat']
+                  )
                 }
                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
@@ -544,7 +570,9 @@ const GeneralSettings: React.FC<GeneralSettingsProps> = ({ userType = 'organizat
                     : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                 }`}
               >
-                <div className="font-medium text-gray-900 dark:text-white mb-1">Light</div>
+                <div className="font-medium text-gray-900 dark:text-white mb-1">
+                  Light
+                </div>
                 <div className="text-xs text-gray-500 dark:text-gray-400">
                   Classic light theme
                 </div>
@@ -558,7 +586,9 @@ const GeneralSettings: React.FC<GeneralSettingsProps> = ({ userType = 'organizat
                     : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                 }`}
               >
-                <div className="font-medium text-gray-900 dark:text-white mb-1">Dark</div>
+                <div className="font-medium text-gray-900 dark:text-white mb-1">
+                  Dark
+                </div>
                 <div className="text-xs text-gray-500 dark:text-gray-400">
                   Easy on the eyes
                 </div>
@@ -572,7 +602,9 @@ const GeneralSettings: React.FC<GeneralSettingsProps> = ({ userType = 'organizat
                     : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                 }`}
               >
-                <div className="font-medium text-gray-900 dark:text-white mb-1">System</div>
+                <div className="font-medium text-gray-900 dark:text-white mb-1">
+                  System
+                </div>
                 <div className="text-xs text-gray-500 dark:text-gray-400">
                   Match OS preference
                 </div>

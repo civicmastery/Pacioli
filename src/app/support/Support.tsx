@@ -91,13 +91,16 @@ const quickLinks: QuickLink[] = [
 
 const Support: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState<'all' | 'guide' | 'crypto' | 'api' | 'tutorial'>('all')
+  const [selectedCategory, setSelectedCategory] = useState<
+    'all' | 'guide' | 'crypto' | 'api' | 'tutorial'
+  >('all')
 
   const filteredTopics = helpTopics.filter(topic => {
     const matchesSearch =
       topic.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       topic.description.toLowerCase().includes(searchQuery.toLowerCase())
-    const matchesCategory = selectedCategory === 'all' || topic.category === selectedCategory
+    const matchesCategory =
+      selectedCategory === 'all' || topic.category === selectedCategory
     return matchesSearch && matchesCategory
   })
 
@@ -107,7 +110,9 @@ const Support: React.FC = () => {
       <header className="bg-white dark:bg-black border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div>
-            <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Support</h1>
+            <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
+              Support
+            </h1>
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
               Documentation, guides, and help resources
             </p>
@@ -237,7 +242,9 @@ const Support: React.FC = () => {
               <div className="flex items-start">
                 <Video className="w-8 h-8 flex-shrink-0" />
                 <div className="ml-4 flex-1">
-                  <h3 className="text-lg font-semibold mb-2">Video Tutorials</h3>
+                  <h3 className="text-lg font-semibold mb-2">
+                    Video Tutorials
+                  </h3>
                   <p className="text-sm opacity-90 mb-4">
                     Watch step-by-step video guides to learn Numbers features
                   </p>
@@ -291,14 +298,18 @@ const Support: React.FC = () => {
                 System Status
               </h3>
               <div className="flex items-center justify-between mb-3">
-                <span className="text-sm text-gray-600 dark:text-gray-400">API</span>
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  API
+                </span>
                 <span className="flex items-center text-sm text-green-600 dark:text-green-400">
                   <span className="w-2 h-2 bg-green-600 rounded-full mr-2"></span>
                   Operational
                 </span>
               </div>
               <div className="flex items-center justify-between mb-3">
-                <span className="text-sm text-gray-600 dark:text-gray-400">Web App</span>
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  Web App
+                </span>
                 <span className="flex items-center text-sm text-green-600 dark:text-green-400">
                   <span className="w-2 h-2 bg-green-600 rounded-full mr-2"></span>
                   Operational
@@ -346,7 +357,9 @@ const Support: React.FC = () => {
                   <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                     Added support for GLMR and ASTR staking
                   </p>
-                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Oct 10, 2025</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
+                    Oct 10, 2025
+                  </p>
                 </div>
                 <div>
                   <p className="text-sm font-medium text-gray-900 dark:text-white">
@@ -355,7 +368,9 @@ const Support: React.FC = () => {
                   <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                     Full REST API now available
                   </p>
-                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Oct 1, 2025</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
+                    Oct 1, 2025
+                  </p>
                 </div>
               </div>
             </div>
@@ -366,8 +381,8 @@ const Support: React.FC = () => {
                 Full Documentation
               </h3>
               <p className="text-xs text-gray-600 dark:text-gray-400 mb-4">
-                Access the complete Numbers documentation site for in-depth guides and
-                references.
+                Access the complete Numbers documentation site for in-depth
+                guides and references.
               </p>
               <a
                 href="/docs/"
