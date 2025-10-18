@@ -196,7 +196,9 @@ const Analytics: React.FC = () => {
                 {showPeriodDropdown && (
                   <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-10">
                     {timePeriods.map(period => {
-                      const handleClick = createPeriodSelectHandler(period.value)
+                      const handleClick = createPeriodSelectHandler(
+                        period.value
+                      )
                       return (
                         <button
                           key={period.value}
@@ -254,7 +256,9 @@ const Analytics: React.FC = () => {
                     {Math.abs(kpi.change)}%
                   </div>
                 </div>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{kpi.label}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {kpi.label}
+                </p>
                 <p className="text-2xl font-semibold text-gray-900 dark:text-white mt-1">
                   {kpi.value}
                 </p>
@@ -305,7 +309,13 @@ const Analytics: React.FC = () => {
 
                 {/* Area fill */}
                 <defs>
-                  <linearGradient id="portfolioGradient" x1="0" x2="0" y1="0" y2="1">
+                  <linearGradient
+                    id="portfolioGradient"
+                    x1="0"
+                    x2="0"
+                    y1="0"
+                    y2="1"
+                  >
                     <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.3" />
                     <stop offset="100%" stopColor="#3B82F6" stopOpacity="0" />
                   </linearGradient>
@@ -327,7 +337,7 @@ const Analytics: React.FC = () => {
                 {/* Data points */}
                 {portfolioData.map((point, i) => {
                   const x = 50 + i * 100
-                  const y = 120 - (i * 12) + (i % 2 === 0 ? 15 : 0)
+                  const y = 120 - i * 12 + (i % 2 === 0 ? 15 : 0)
                   return (
                     <circle
                       key={i}
@@ -432,7 +442,10 @@ const Analytics: React.FC = () => {
 
             <div className="space-y-3">
               {assetAllocation.map(asset => (
-                <div key={asset.name} className="flex items-center justify-between">
+                <div
+                  key={asset.name}
+                  className="flex items-center justify-between"
+                >
                   <div className="flex items-center">
                     <div
                       className="w-3 h-3 rounded-full mr-3"
@@ -486,7 +499,9 @@ const Analytics: React.FC = () => {
 
             <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-500 dark:text-gray-400">Total this week</span>
+                <span className="text-gray-500 dark:text-gray-400">
+                  Total this week
+                </span>
                 <span className="font-semibold text-gray-900 dark:text-white">
                   $142,850
                 </span>
@@ -516,13 +531,17 @@ const Analytics: React.FC = () => {
                   <p className="text-sm font-medium text-gray-900 dark:text-white">
                     DOT Staking
                   </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">12.5% APY</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    12.5% APY
+                  </p>
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-semibold text-green-600 dark:text-green-400">
                     +$2,450.32
                   </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">This month</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    This month
+                  </p>
                 </div>
               </div>
 
@@ -531,13 +550,17 @@ const Analytics: React.FC = () => {
                   <p className="text-sm font-medium text-gray-900 dark:text-white">
                     GLMR Staking
                   </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">15.2% APY</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    15.2% APY
+                  </p>
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-semibold text-blue-600 dark:text-blue-400">
                     +$1,820.18
                   </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">This month</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    This month
+                  </p>
                 </div>
               </div>
 
@@ -546,13 +569,17 @@ const Analytics: React.FC = () => {
                   <p className="text-sm font-medium text-gray-900 dark:text-white">
                     ASTR Staking
                   </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">8.7% APY</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    8.7% APY
+                  </p>
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-semibold text-purple-600 dark:text-purple-400">
                     +$986.45
                   </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">This month</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    This month
+                  </p>
                 </div>
               </div>
             </div>
@@ -613,11 +640,15 @@ const Analytics: React.FC = () => {
             <div className="mt-6 flex items-center justify-center gap-6">
               <div className="flex items-center">
                 <div className="w-3 h-3 bg-green-500 rounded mr-2" />
-                <span className="text-xs text-gray-500 dark:text-gray-400">Revenue</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">
+                  Revenue
+                </span>
               </div>
               <div className="flex items-center">
                 <div className="w-3 h-3 bg-red-500 rounded mr-2" />
-                <span className="text-xs text-gray-500 dark:text-gray-400">Expenses</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">
+                  Expenses
+                </span>
               </div>
             </div>
           </div>

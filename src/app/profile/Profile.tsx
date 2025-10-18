@@ -65,9 +65,14 @@ const Profile: React.FC = () => {
   })
 
   const [hasChanges, setHasChanges] = useState(false)
-  const [activeTab, setActiveTab] = useState<'profile' | 'security' | 'preferences'>('profile')
+  const [activeTab, setActiveTab] = useState<
+    'profile' | 'security' | 'preferences'
+  >('profile')
 
-  const handleProfileChange = <K extends keyof UserProfile>(key: K, value: UserProfile[K]) => {
+  const handleProfileChange = <K extends keyof UserProfile>(
+    key: K,
+    value: UserProfile[K]
+  ) => {
     setProfile(prev => ({ ...prev, [key]: value }))
     setHasChanges(true)
   }
@@ -202,7 +207,9 @@ const Profile: React.FC = () => {
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mt-4">
                   {profile.firstName} {profile.lastName}
                 </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{profile.jobTitle}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {profile.jobTitle}
+                </p>
               </div>
 
               {/* Tab Navigation */}
@@ -383,7 +390,9 @@ const Profile: React.FC = () => {
                         <input
                           type="checkbox"
                           checked={security.twoFactorEnabled}
-                          onChange={createSecurityToggleHandler('twoFactorEnabled')}
+                          onChange={createSecurityToggleHandler(
+                            'twoFactorEnabled'
+                          )}
                           className="sr-only peer"
                         />
                         <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
@@ -453,10 +462,18 @@ const Profile: React.FC = () => {
                             onChange={createProfileInputHandler('timezone')}
                             className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                           >
-                            <option value="America/Los_Angeles">Pacific Time (US & Canada)</option>
-                            <option value="America/Denver">Mountain Time (US & Canada)</option>
-                            <option value="America/Chicago">Central Time (US & Canada)</option>
-                            <option value="America/New_York">Eastern Time (US & Canada)</option>
+                            <option value="America/Los_Angeles">
+                              Pacific Time (US & Canada)
+                            </option>
+                            <option value="America/Denver">
+                              Mountain Time (US & Canada)
+                            </option>
+                            <option value="America/Chicago">
+                              Central Time (US & Canada)
+                            </option>
+                            <option value="America/New_York">
+                              Eastern Time (US & Canada)
+                            </option>
                             <option value="UTC">UTC</option>
                           </select>
                         </div>
@@ -514,7 +531,9 @@ const Profile: React.FC = () => {
                         <input
                           type="checkbox"
                           checked={security.emailNotifications}
-                          onChange={createSecurityToggleHandler('emailNotifications')}
+                          onChange={createSecurityToggleHandler(
+                            'emailNotifications'
+                          )}
                           className="sr-only peer"
                         />
                         <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
@@ -534,7 +553,9 @@ const Profile: React.FC = () => {
                         <input
                           type="checkbox"
                           checked={security.smsNotifications}
-                          onChange={createSecurityToggleHandler('smsNotifications')}
+                          onChange={createSecurityToggleHandler(
+                            'smsNotifications'
+                          )}
                           className="sr-only peer"
                         />
                         <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
